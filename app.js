@@ -1,22 +1,30 @@
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
+import axios from "axios";
 
-const companyRoutes = require("./routes/companyRoutes");
+const API_BASE = "http://srv1235061.hstgr.cloud:5000";
 
-const app = express();
-app.get("/", (req, res) => {
-  res.send("🚀 Bizzmark Backend API is running");
+// Axios instance
+const api = axios.create({
+  baseURL: API_BASE,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// ---------- COMPANY APIs ----------
 
-const upload = multer();
+// Register company
+export const registerCompany = (formData) => {
+  return api.post("/api/companies/register", formData);
+};
 
-// Routes
-app.use("/api/companies", companyRoutes);
+// Login company
+export const loginCompany = (data) => {
+  return api.post("/api/companies/login", data);
+};
 
-module.exports = app;
+// Update company profile
+export const updateCompanyProfile = (id, data) => {
+  return api.put(`/api/companies/profile/${id}`, data);
+};
+
+export default api;

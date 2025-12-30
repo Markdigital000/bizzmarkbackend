@@ -1,24 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/upload");
+
 const {
   registerCompany,
   loginCompany,
+  updateCompanyProfile
 } = require("../controllers/companyController");
-const { updateCompanyProfile } = require("../controllers/companyController");
 
-router.post("/register", upload.single("photoUrl"), registerCompany);
-router.post("/login", loginCompany);
-
-// ✅ TEST GET ROUTE
-router.get("", (req, res) => {
+// ✅ TEST ROUTE
+router.get("/", (req, res) => {
   res.json({
     status: "OK",
-    message: "Company API root working 🚀"
+    message: "Company API is working 🚀"
   });
 });
 
-
+router.post("/register", upload.single("photoUrl"), registerCompany);
+router.post("/login", loginCompany);
 router.put("/profile/:id", updateCompanyProfile);
 
 module.exports = router;

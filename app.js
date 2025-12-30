@@ -12,8 +12,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // ✅ ROOT ROUTE (THIS WAS MISSING EFFECTIVELY)
 app.get("/", (req, res) => {
-  res.status(200).send("🚀 Bizzmark Backend API is running");
+  res.json({
+    status: "OK",
+    message: "Bizzmark Backend is running 🚀"
+  });
 });
+
 
 // API Routes
 app.use("/api/companies", companyRoutes);

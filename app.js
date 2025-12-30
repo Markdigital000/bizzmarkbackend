@@ -5,6 +5,9 @@ const multer = require("multer");
 const companyRoutes = require("./routes/companyRoutes");
 
 const app = express();
+app.get("/", (req, res) => {
+  res.send("🚀 Bizzmark Backend API is running");
+});
 
 // Middleware
 app.use(cors());

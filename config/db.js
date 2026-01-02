@@ -1,20 +1,13 @@
-const { Pool } = require("pg");
-require("dotenv").config();
+import pkg from "pg";
+const { Pool } = pkg;
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-  max: 5,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 10000, // 🔥 increase timeout
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: Number(process.env.DB_PORT),
+  ssl: { rejectUnauthorized: false }
 });
 
-pool.on("connect", () => {
-  console.log("🔗 PostgreSQL pool connected");
-});
-
-pool.on("error", (err) => {
-  console.error("❌ Unexpected PG error", err.message);
-});
-
-module.exports = pool;
+export default pool;

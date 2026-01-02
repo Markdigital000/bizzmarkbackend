@@ -7,7 +7,17 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: Number(process.env.DB_PORT),
-  ssl: { rejectUnauthorized: false }
+  ssl: { rejectUnauthorized: false },
+});
+
+pool.on("connect", () => {
+  console.log("✅ PostgreSQL pool connected");
+  console.log("✅ Neon Database connected successfully");
+});
+
+pool.on("error", (err) => {
+  console.error("❌ Unexpected DB error:", err);
+  process.exit(1);
 });
 
 export default pool;
